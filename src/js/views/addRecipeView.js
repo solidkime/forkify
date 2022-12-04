@@ -25,10 +25,6 @@ class addRecipeView extends View {
     this._overlay.classList.toggle('hidden');
     this._window.classList.toggle('hidden');
 
-    // const error = this._parentElement.querySelector('.error');
-    // if (error)
-
-    // this._insertUploadForm;
     if (!this._window.classList.contains('hidden')) this._insertUploadForm();
   }
 

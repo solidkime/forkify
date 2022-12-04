@@ -46,6 +46,7 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) {
       console.log('inside error');
+      ç;
       return resultsView.renderError();
       console.log('inside error');
     }
