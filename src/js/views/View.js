@@ -104,5 +104,9 @@ export default class View {
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    console.log('Rendered message');
   }
 }
+
+export const vuvu = new View();
+// console.log(vuvu);

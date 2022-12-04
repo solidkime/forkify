@@ -1,6 +1,6 @@
 import { TIMEOUT_SEC } from './config';
 
-const timeout = function (s) {
+export const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
       reject(new Error(`Request took too long! Timeout after ${s} second`));

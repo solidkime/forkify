@@ -2,6 +2,7 @@ import { async } from 'regenerator-runtime';
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 // import { getJSON, sendJSON } from './helpers';
 import { AJAX } from './helpers.js';
+import * as math from 'mathjs';
 
 export const state = {
   recipe: {},
@@ -32,6 +33,7 @@ export const loadRecipe = async function (id) {
   try {
     const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
     state.recipe = createRecipeObject(data);
+    console.log(state.recipe);
 
     // if (!res.ok) throw new Error(`${data.message} (${res.status})`);
 
@@ -49,7 +51,8 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-    // console.log(data);
+    console.log('searchresults!!!!!');
+
     state.search.results = data.data.recipes.map(rec => {
       return {
         id: rec.id,
@@ -75,8 +78,11 @@ export const getSearchResultsPage = function (page = state.search.page) {
 };
 
 export const updateServings = function (newServings) {
+  console.log(math.fraction((0.5 / 23) * 24));
   state.recipe.ingredients.forEach(ing => {
-    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+    ing.quantity = math.fraction(
+      (ing.quantity * newServings) / state.recipe.servings
+    );
     // newQt = (oldQt * newServings) / oldServings // 2 * 8  / 4 = 4
   });
   state.recipe.servings = newServings;

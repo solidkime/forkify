@@ -6,6 +6,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import vuvu from './views/View.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -22,7 +23,6 @@ const controlRecipes = async function () {
     const id = window.location.hash.slice(1);
 
     if (!id) return;
-
     recipeView.renderSpinner();
     // 0. Update results view to mark selected search result
     resultsView.update(model.getSearchResultsPage());
@@ -42,8 +42,17 @@ const controlSearchResults = async function () {
   try {
     resultsView.renderSpinner();
     // 1. Get search query
+
     const query = searchView.getQuery();
-    if (!query) return;
+    if (!query) {
+      console.log('inside error');
+      return resultsView.renderError();
+      console.log('inside error');
+    }
+
+    // if (!query) return;
+    // if (!query) throw new Error('No search results :(');
+    console.log('Is there me');
     // 2. Load search results
     await model.loadSearchResults(query);
 
@@ -53,8 +62,10 @@ const controlSearchResults = async function () {
 
     // 4. Render initial pagination buttons
     paginationView.render(model.state.search);
+    console.log('FINISHED');
   } catch (err) {
-    console.log(err);
+    console.error('💥💥', err);
+    // resultsView.renderError(err.message);
   }
 };
 
@@ -111,7 +122,6 @@ const controlAddRecipe = async function (newRecipe) {
     // Change id ID in the URL
     window.history.pushState(null, '', `#${model.state.recipe.id}`);
 
-    // Close form window
     setTimeout(function () {
       addRecipeView.toggleWindow();
     }, MODAL_CLOSE_SEC * 1000);
@@ -119,10 +129,6 @@ const controlAddRecipe = async function (newRecipe) {
     console.error('💥', err);
     addRecipeView.renderError(err.message);
   }
-};
-
-const newFeature = function () {
-  console.log('Welcome to the application!');
 };
 
 const init = function () {
@@ -133,7 +139,6 @@ const init = function () {
   searchView.addHahdlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView._addHandlerUpload(controlAddRecipe);
-  newFeature();
 };
 init();
 

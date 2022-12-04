@@ -2,6 +2,9 @@ import View from './View.js';
 
 import icons from 'url:../../img/icons.svg';
 import fracty from 'fracty';
+// import * as math from './fractions.js';
+import * as math from 'mathjs';
+var fracty = require('fracty');
 
 class recipeView extends View {
   _parentElement = document.querySelector('.recipe');
@@ -124,12 +127,15 @@ class recipeView extends View {
   }
 
   _generateMarkupIngredient(ing) {
+    console.log(fracty(6.9024390243902));
+
     return `
     <li class="recipe__ingredient">
       <svg class="recipe__icon">
         <use href="${icons}#icon-check"></use>
       </svg>
       <div class="recipe__quantity">${
+        // ing.quantity ? fracty(ing.quantity).toString() : ''
         ing.quantity ? fracty(ing.quantity).toString() : ''
       }</div>
       <div class="recipe__description">

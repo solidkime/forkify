@@ -25,8 +25,11 @@ class addRecipeView extends View {
     this._overlay.classList.toggle('hidden');
     this._window.classList.toggle('hidden');
 
-    const error = this._parentElement.querySelector('.error');
-    if (error) this._insertUploadForm();
+    // const error = this._parentElement.querySelector('.error');
+    // if (error)
+
+    // this._insertUploadForm;
+    if (!this._window.classList.contains('hidden')) this._insertUploadForm();
   }
 
   _addHandlerShowWindow() {
@@ -113,13 +116,14 @@ class addRecipeView extends View {
    
         <button class='btn upload__btn'>
           <svg>
-            <use href='src/img/icons.svg#icon-upload-cloud'></use>
+            <use href='${icons}#icon-upload-cloud'></use>
           </svg>
           <span>Upload</span>
         </button>
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    console.log('done');
   }
 }
 
