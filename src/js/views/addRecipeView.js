@@ -21,20 +21,30 @@ class addRecipeView extends View {
     return this;
   }
 
-  toggleWindow() {
-    this._overlay.classList.toggle('hidden');
-    this._window.classList.toggle('hidden');
+  // toggleWindow() {
+  //   this._overlay.classList.toggle('hidden');
+  //   this._window.classList.toggle('hidden');
 
-    if (!this._window.classList.contains('hidden')) this._insertUploadForm();
+  //   if (!this._window.classList.contains('hidden')) this._insertUploadForm();
+  // }
+
+  showWindow() {
+    this._insertUploadForm();
+    this._overlay.classList.remove('hidden');
+    this._window.classList.remove('hidden');
+  }
+  hideWindow() {
+    this._overlay.classList.add('hidden');
+    this._window.classList.add('hidden');
   }
 
   _addHandlerShowWindow() {
-    this._btnOpen.addEventListener('click', this.toggleWindow.bind(this));
+    this._btnOpen.addEventListener('click', this.showWindow.bind(this));
   }
 
   _addHandlerHideWindow() {
-    this._btnClose.addEventListener('click', this.toggleWindow.bind(this));
-    this._overlay.addEventListener('click', this.toggleWindow.bind(this));
+    this._btnClose.addEventListener('click', this.hideWindow.bind(this));
+    this._overlay.addEventListener('click', this.hideWindow.bind(this));
   }
 
   _addHandlerUpload(handler) {
